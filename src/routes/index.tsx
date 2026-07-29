@@ -1,25 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
-  Instagram,
-  Youtube,
-  Twitter,
-  Facebook,
-  Linkedin,
-  Github,
-  Globe,
-  Mail,
-  Music2,
-  ShoppingBag,
-  MessageCircle,
-  Send,
   Link as LinkIcon,
-  Trash2,
-  Plus,
   Palette,
-  UserRound,
-  type LucideIcon,
+  ImagePlus,
+  Sparkles,
+  ShieldCheck,
+  Smartphone,
+  ArrowLeft,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { BioPreview, THEMES, type ThemeKey } from "@/lib/bio";
 
 export const Route = createFileRoute("/")({
   head: () => ({
