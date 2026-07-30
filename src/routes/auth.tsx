@@ -79,9 +79,13 @@ function AuthPage() {
     >
       <div className="w-full max-w-md">
         <Link to="/" className="mb-6 flex items-center justify-center gap-2">
-          <span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-primary-foreground">
-            <LinkIcon className="h-5 w-5" />
-          </span>
+          <img
+            src={logo}
+            alt="شعار Linktood"
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-2xl"
+          />
           <span className="text-xl font-black">Linktood</span>
         </Link>
 

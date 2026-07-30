@@ -156,6 +156,7 @@ export function BioPreview({
         style={{ color: "var(--preview-muted)" }}
       >
         صُنعت بواسطة Linktood ✦ أنشئ صفحتك مجاناً
+        <br />© أحمد السيد أبو دوم
       </p>
     </div>
   );

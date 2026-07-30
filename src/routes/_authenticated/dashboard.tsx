@@ -239,9 +239,13 @@ function Dashboard() {
       <header className="sticky top-0 z-10 border-b border-border bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4">
           <Link to="/" className="flex min-w-0 items-center gap-3">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground">
-              <LinkIcon className="h-5 w-5" />
-            </span>
+            <img
+              src={logo}
+              alt="شعار Linktood"
+              width={40}
+              height={40}
+              className="h-10 w-10 shrink-0 rounded-2xl"
+            />
             <span className="truncate text-lg font-black">Linktood</span>
           </Link>
           <button
