@@ -14,6 +14,8 @@ import {
   LogOut,
   Upload,
   ExternalLink,
+  Pencil,
+  X,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -55,6 +57,12 @@ function Dashboard() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<{ title: string; url: string; icon: IconKey }>({
+    title: "",
+    url: "",
+    icon: "website",
+  });
   const [form, setForm] = useState<{ title: string; url: string; icon: IconKey }>({
     title: "",
     url: "",
@@ -208,6 +216,34 @@ function Dashboard() {
 
   const removeLink = async (id: string) => {
     await supabase.from("links").delete().eq("id", id);
+    queryClient.invalidateQueries({ queryKey: ["my-links"] });
+  };
+
+  const startEdit = (link: BioLink) => {
+    setError("");
+    setEditingId(link.id);
+    setEditForm({ title: link.title, url: link.url, icon: link.icon as IconKey });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+  };
+
+  const saveLink = async (id: string) => {
+    setError("");
+    if (!editForm.title.trim()) return setError("يرجى كتابة عنوان الزر.");
+    if (!editForm.url.trim()) return setError("يرجى إدخال رابط صحيح.");
+    const { error: err } = await supabase
+      .from("links")
+      .update({
+        title: editForm.title.trim(),
+        url: normalizeUrl(editForm.url),
+        icon: editForm.icon,
+      })
+      .eq("id", id);
+    if (err) return setError("تعذّر تعديل الرابط.");
+    setEditingId(null);
+    setNotice("تم تحديث الرابط ✓");
     queryClient.invalidateQueries({ queryKey: ["my-links"] });
   };
 
@@ -419,6 +455,56 @@ function Dashboard() {
               <ul className="space-y-2">
                 {links.map((link) => {
                   const { Icon } = ICONS[link.icon as IconKey] ?? ICONS.website;
+                  if (editingId === link.id) {
+                    return (
+                      <li
+                        key={link.id}
+                        className="space-y-2 rounded-2xl border border-primary bg-background p-3"
+                      >
+                        <input
+                          value={editForm.title}
+                          onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                          placeholder="عنوان الزر"
+                          className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                        />
+                        <input
+                          value={editForm.url}
+                          onChange={(e) => setEditForm({ ...editForm, url: e.target.value })}
+                          placeholder="رابط URL"
+                          dir="ltr"
+                          className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                        />
+                        <select
+                          value={editForm.icon}
+                          onChange={(e) =>
+                            setEditForm({ ...editForm, icon: e.target.value as IconKey })
+                          }
+                          className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+                        >
+                          {(Object.keys(ICONS) as IconKey[]).map((key) => (
+                            <option key={key} value={key}>
+                              {ICONS[key].label}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => saveLink(link.id)}
+                            className="flex-1 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
+                          >
+                            حفظ التعديل
+                          </button>
+                          <button
+                            onClick={cancelEdit}
+                            aria-label="إلغاء التعديل"
+                            className="rounded-xl border border-border px-4 py-2 text-sm font-semibold transition-colors hover:bg-accent"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </li>
+                    );
+                  }
                   return (
                     <li
                       key={link.id}
@@ -433,13 +519,22 @@ function Dashboard() {
                           {link.url}
                         </p>
                       </div>
-                      <button
-                        onClick={() => removeLink(link.id)}
-                        aria-label={`حذف ${link.title}`}
-                        className="shrink-0 rounded-xl border border-border p-2 text-destructive transition-colors hover:bg-destructive/10"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                      <div className="flex shrink-0 items-center gap-2">
+                        <button
+                          onClick={() => startEdit(link)}
+                          aria-label={`تعديل ${link.title}`}
+                          className="rounded-xl border border-border p-2 transition-colors hover:bg-accent"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => removeLink(link.id)}
+                          aria-label={`حذف ${link.title}`}
+                          className="rounded-xl border border-border p-2 text-destructive transition-colors hover:bg-destructive/10"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
                     </li>
                   );
                 })}
