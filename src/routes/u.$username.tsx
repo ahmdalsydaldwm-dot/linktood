@@ -10,12 +10,12 @@ export const Route = createFileRoute("/u/$username")({
   },
   head: ({ loaderData }) => {
     const name = loaderData?.profile.display_name || loaderData?.profile.username || "صفحة روابط";
-    const desc = loaderData?.profile.bio || `كل روابط ${name} في صفحة واحدة عبر رابطي.`;
+    const desc = loaderData?.profile.bio || `كل روابط ${name} في صفحة واحدة عبر Linktood.`;
     return {
       meta: [
-        { title: `${name} | رابطي` },
+        { title: `${name} | Linktood` },
         { name: "description", content: desc.slice(0, 155) },
-        { property: "og:title", content: `${name} | رابطي` },
+        { property: "og:title", content: `${name} | Linktood` },
         { property: "og:description", content: desc.slice(0, 155) },
         { property: "og:type", content: "profile" },
         { name: "twitter:card", content: "summary_large_image" },

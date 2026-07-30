@@ -7,13 +7,13 @@ import { lovable } from "@/integrations/lovable/index";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "تسجيل الدخول | رابطي" },
+      { title: "تسجيل الدخول | Linktood" },
       {
         name: "description",
-        content: "سجّل الدخول إلى رابطي عبر جوجل أو البريد الإلكتروني لإدارة صفحة روابط البايو.",
+        content: "سجّل الدخول إلى Linktood عبر جوجل أو البريد الإلكتروني لإدارة صفحة روابط البايو.",
       },
-      { property: "og:title", content: "تسجيل الدخول | رابطي" },
-      { property: "og:description", content: "ادخل إلى لوحة تحكم صفحة روابطك في رابطي." },
+      { property: "og:title", content: "تسجيل الدخول | Linktood" },
+      { property: "og:description", content: "ادخل إلى لوحة تحكم صفحة روابطك في Linktood." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -82,7 +82,7 @@ function AuthPage() {
           <span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-primary-foreground">
             <LinkIcon className="h-5 w-5" />
           </span>
-          <span className="text-xl font-black">رابطي</span>
+          <span className="text-xl font-black">Linktood</span>
         </Link>
 
         <div className="rounded-3xl border border-border bg-card p-6 shadow-xl">

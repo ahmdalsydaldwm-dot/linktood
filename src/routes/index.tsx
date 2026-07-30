@@ -15,13 +15,13 @@ import { BioPreview, THEMES, type ThemeKey, type BioLink } from "@/lib/bio";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "رابطي | صفحة روابط البايو برابط مخصص" },
+      { title: "Linktood | صفحة روابط البايو برابط مخصص" },
       {
         name: "description",
         content:
           "أنشئ صفحة روابط بايو أنيقة برابط مخصص وصورة شخصية ومظاهر جاهزة، وسجّل الدخول بجوجل خلال ثوانٍ.",
       },
-      { property: "og:title", content: "رابطي | صفحة روابط البايو برابط مخصص" },
+      { property: "og:title", content: "Linktood | صفحة روابط البايو برابط مخصص" },
       {
         property: "og:description",
         content: "رابط مخصص، صورة شخصية، مظاهر جميلة، ومعاينة حية لصفحة روابطك.",
@@ -93,7 +93,7 @@ function Index() {
               <LinkIcon className="h-5 w-5" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-lg font-black">رابطي</p>
+              <p className="truncate text-lg font-black">Linktood</p>
               <p className="truncate text-[11px] text-muted-foreground">
                 كل روابطك في صفحة واحدة أنيقة
               </p>
@@ -225,7 +225,7 @@ function Index() {
       </main>
 
       <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground">
-        صُنعت بواسطة رابطي ✦ أنشئ صفحتك مجاناً
+        صُنعت بواسطة Linktood ✦ أنشئ صفحتك مجاناً
       </footer>
     </div>
   );

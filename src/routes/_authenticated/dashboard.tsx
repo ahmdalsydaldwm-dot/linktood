@@ -28,12 +28,12 @@ import {
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "لوحة التحكم | رابطي" },
+      { title: "لوحة التحكم | Linktood" },
       {
         name: "description",
         content: "عدّل رابطك المخصص وصورتك الشخصية وروابطك ومظهر صفحتك مع معاينة حية.",
       },
-      { property: "og:title", content: "لوحة التحكم | رابطي" },
+      { property: "og:title", content: "لوحة التحكم | Linktood" },
       { property: "og:description", content: "إدارة صفحة روابط البايو الخاصة بك." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -242,7 +242,7 @@ function Dashboard() {
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground">
               <LinkIcon className="h-5 w-5" />
             </span>
-            <span className="truncate text-lg font-black">رابطي</span>
+            <span className="truncate text-lg font-black">Linktood</span>
           </Link>
           <button
             onClick={signOut}
