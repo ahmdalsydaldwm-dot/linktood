@@ -1,3 +1,4 @@
+import logo from "@/assets/linktood-logo.png";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Link as LinkIcon, Loader2 } from "lucide-react";

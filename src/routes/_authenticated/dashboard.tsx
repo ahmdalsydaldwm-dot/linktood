@@ -1,3 +1,4 @@
+import logo from "@/assets/linktood-logo.png";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
