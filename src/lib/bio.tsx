@@ -155,7 +155,8 @@ export function BioPreview({
         className="mt-8 text-center text-[11px] font-semibold"
         style={{ color: "var(--preview-muted)" }}
       >
-        صُنعت بواسطة رابطي ✦ أنشئ صفحتك مجاناً
+        صُنعت بواسطة Linktood ✦ أنشئ صفحتك مجاناً
+        <br />© أحمد السيد أبو دوم
       </p>
     </div>
   );

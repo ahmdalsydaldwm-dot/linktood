@@ -1,3 +1,4 @@
+import logo from "@/assets/linktood-logo.png";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -28,12 +29,12 @@ import {
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "لوحة التحكم | رابطي" },
+      { title: "لوحة التحكم | Linktood" },
       {
         name: "description",
         content: "عدّل رابطك المخصص وصورتك الشخصية وروابطك ومظهر صفحتك مع معاينة حية.",
       },
-      { property: "og:title", content: "لوحة التحكم | رابطي" },
+      { property: "og:title", content: "لوحة التحكم | Linktood" },
       { property: "og:description", content: "إدارة صفحة روابط البايو الخاصة بك." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -239,10 +240,14 @@ function Dashboard() {
       <header className="sticky top-0 z-10 border-b border-border bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4">
           <Link to="/" className="flex min-w-0 items-center gap-3">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground">
-              <LinkIcon className="h-5 w-5" />
-            </span>
-            <span className="truncate text-lg font-black">رابطي</span>
+            <img
+              src={logo}
+              alt="شعار Linktood"
+              width={40}
+              height={40}
+              className="h-10 w-10 shrink-0 rounded-2xl"
+            />
+            <span className="truncate text-lg font-black">Linktood</span>
           </Link>
           <button
             onClick={signOut}

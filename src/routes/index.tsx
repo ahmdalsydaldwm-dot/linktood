@@ -10,18 +10,19 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import logo from "@/assets/linktood-logo.png";
 import { BioPreview, THEMES, type ThemeKey, type BioLink } from "@/lib/bio";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "رابطي | صفحة روابط البايو برابط مخصص" },
+      { title: "Linktood | صفحة روابط البايو برابط مخصص" },
       {
         name: "description",
         content:
           "أنشئ صفحة روابط بايو أنيقة برابط مخصص وصورة شخصية ومظاهر جاهزة، وسجّل الدخول بجوجل خلال ثوانٍ.",
       },
-      { property: "og:title", content: "رابطي | صفحة روابط البايو برابط مخصص" },
+      { property: "og:title", content: "Linktood | صفحة روابط البايو برابط مخصص" },
       {
         property: "og:description",
         content: "رابط مخصص، صورة شخصية، مظاهر جميلة، ومعاينة حية لصفحة روابطك.",
@@ -89,11 +90,15 @@ function Index() {
       <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4">
           <div className="flex min-w-0 items-center gap-3">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground">
-              <LinkIcon className="h-5 w-5" />
-            </span>
+            <img
+              src={logo}
+              alt="شعار Linktood"
+              width={40}
+              height={40}
+              className="h-10 w-10 shrink-0 rounded-2xl"
+            />
             <div className="min-w-0">
-              <p className="truncate text-lg font-black">رابطي</p>
+              <p className="truncate text-lg font-black">Linktood</p>
               <p className="truncate text-[11px] text-muted-foreground">
                 كل روابطك في صفحة واحدة أنيقة
               </p>
@@ -224,8 +229,27 @@ function Index() {
         </section>
       </main>
 
-      <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground">
-        صُنعت بواسطة رابطي ✦ أنشئ صفحتك مجاناً
+      <footer className="border-t border-border py-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 text-center text-xs text-muted-foreground">
+          <img
+            src={logo}
+            alt="شعار Linktood"
+            loading="lazy"
+            width={44}
+            height={44}
+            className="h-11 w-11 rounded-2xl"
+          />
+          <p className="text-sm font-black text-foreground">Linktood</p>
+          <p>جميع الحقوق محفوظة © أحمد السيد أبو دوم</p>
+          <p>شركة أحمد السيد أبو دوم البرمجية — البلينا، سوهاج، مصر</p>
+          <a
+            href="tel:01034902816"
+            className="rounded-full border border-border px-4 py-2 font-bold text-foreground transition-colors hover:bg-accent"
+            dir="ltr"
+          >
+            01034902816
+          </a>
+        </div>
       </footer>
     </div>
   );
