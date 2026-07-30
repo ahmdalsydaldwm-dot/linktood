@@ -14,6 +14,8 @@ import {
   LogOut,
   Upload,
   ExternalLink,
+  Pencil,
+  X,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -55,6 +57,12 @@ function Dashboard() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<{ title: string; url: string; icon: IconKey }>({
+    title: "",
+    url: "",
+    icon: "website",
+  });
   const [form, setForm] = useState<{ title: string; url: string; icon: IconKey }>({
     title: "",
     url: "",
@@ -208,6 +216,34 @@ function Dashboard() {
 
   const removeLink = async (id: string) => {
     await supabase.from("links").delete().eq("id", id);
+    queryClient.invalidateQueries({ queryKey: ["my-links"] });
+  };
+
+  const startEdit = (link: BioLink) => {
+    setError("");
+    setEditingId(link.id);
+    setEditForm({ title: link.title, url: link.url, icon: link.icon as IconKey });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+  };
+
+  const saveLink = async (id: string) => {
+    setError("");
+    if (!editForm.title.trim()) return setError("يرجى كتابة عنوان الزر.");
+    if (!editForm.url.trim()) return setError("يرجى إدخال رابط صحيح.");
+    const { error: err } = await supabase
+      .from("links")
+      .update({
+        title: editForm.title.trim(),
+        url: normalizeUrl(editForm.url),
+        icon: editForm.icon,
+      })
+      .eq("id", id);
+    if (err) return setError("تعذّر تعديل الرابط.");
+    setEditingId(null);
+    setNotice("تم تحديث الرابط ✓");
     queryClient.invalidateQueries({ queryKey: ["my-links"] });
   };
 
