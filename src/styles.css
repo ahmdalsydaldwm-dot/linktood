@@ -70,7 +70,7 @@
   --card-foreground: oklch(0.16 0.04 275);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.16 0.04 275);
-  --primary: oklch(0.52 0.23 governing);
+  --primary: oklch(0.52 0.23 276);
   --primary-foreground: oklch(0.99 0.005 280);
   --secondary: oklch(0.96 0.014 280);
   --secondary-foreground: oklch(0.24 0.06 275);
@@ -190,7 +190,6 @@
 
 @utility text-gradient {
   background: var(--gradient-brand);
-  -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
