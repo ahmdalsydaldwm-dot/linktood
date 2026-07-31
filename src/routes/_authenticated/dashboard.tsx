@@ -27,6 +27,8 @@ import {
   type ThemeKey,
   type BioLink,
 } from "@/lib/bio";
+import { useUi } from "@/lib/ui-prefs";
+import { PrefsToggles } from "@/components/site/prefs-toggles";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -49,6 +51,7 @@ const SIGNED_URL_TTL = 60 * 60 * 24 * 365 * 5;
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { t, pick } = useUi();
   const queryClient = useQueryClient();
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -265,42 +268,45 @@ function Dashboard() {
 
   if (profileQuery.isLoading) {
     return (
-      <div dir="rtl" className="grid min-h-screen place-items-center">
+      <div className="grid min-h-screen place-items-center">
         <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   return (
-    <div dir="rtl" className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-10 border-b border-border bg-background/85 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4">
+    <div className="aurora min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3.5">
           <Link to="/" className="flex min-w-0 items-center gap-3">
             <img
               src={logo}
-              alt="شعار Linktood"
+              alt="Linktood"
               width={40}
               height={40}
-              className="h-10 w-10 shrink-0 rounded-2xl"
+              className="h-10 w-10 shrink-0 rounded-2xl shadow-lg"
             />
             <span className="truncate text-lg font-black">Linktood</span>
           </Link>
-          <button
-            onClick={signOut}
-            className="flex shrink-0 items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold transition-colors hover:bg-accent"
-          >
-            <LogOut className="h-4 w-4" />
-            خروج
-          </button>
+          <div className="flex shrink-0 items-center gap-2">
+            <PrefsToggles />
+            <button
+              onClick={signOut}
+              className="flex shrink-0 items-center gap-2 rounded-full border border-border px-4 py-2.5 text-xs font-semibold transition-colors hover:bg-accent"
+            >
+              <LogOut className="h-4 w-4" />
+              {t("signOut")}
+            </button>
+          </div>
         </div>
       </header>
 
       <main className="mx-auto grid max-w-6xl gap-8 px-4 py-8 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div className="space-y-6">
-          <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+          <section className="glass rounded-3xl p-5">
             <div className="mb-4 flex items-center gap-2">
               <LinkIcon className="h-5 w-5 text-muted-foreground" />
-              <h2 className="text-base font-bold">رابط صفحتك</h2>
+              <h2 className="text-base font-bold">{t("yourLink")}</h2>
             </div>
             <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-input bg-background px-3 py-2">
               <span className="text-xs text-muted-foreground" dir="ltr">
@@ -340,10 +346,10 @@ function Dashboard() {
             </p>
           </section>
 
-          <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+          <section className="glass rounded-3xl p-5">
             <div className="mb-4 flex items-center gap-2">
               <UserRound className="h-5 w-5 text-muted-foreground" />
-              <h2 className="text-base font-bold">الملف الشخصي</h2>
+              <h2 className="text-base font-bold">{t("profile")}</h2>
             </div>
 
             <div className="mb-4 flex items-center gap-4">
@@ -406,10 +412,10 @@ function Dashboard() {
             </div>
           </section>
 
-          <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+          <section className="glass rounded-3xl p-5">
             <div className="mb-4 flex items-center gap-2">
               <Plus className="h-5 w-5 text-muted-foreground" />
-              <h2 className="text-base font-bold">إضافة رابط جديد</h2>
+              <h2 className="text-base font-bold">{t("addLink")}</h2>
             </div>
             <form onSubmit={addLink} className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
               <input
@@ -438,18 +444,23 @@ function Dashboard() {
               </select>
               <button
                 type="submit"
-                className="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90 sm:col-span-3"
+                className="btn-brand rounded-xl px-5 py-2.5 text-sm font-bold sm:col-span-3"
               >
-                إضافة الرابط
+                {t("addLink")}
               </button>
             </form>
           </section>
 
-          <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
-            <h2 className="mb-4 text-base font-bold">الروابط الحالية ({links.length})</h2>
+          <section className="glass rounded-3xl p-5">
+            <h2 className="mb-4 text-base font-bold">
+              {t("currentLinks")} ({links.length})
+            </h2>
             {links.length === 0 ? (
               <p className="rounded-xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
-                لا توجد روابط بعد. أضف أول رابط من النموذج بالأعلى.
+                {pick(
+                  "لا توجد روابط بعد. أضف أول رابط من النموذج بالأعلى.",
+                  "No links yet. Add your first one using the form above.",
+                )}
               </p>
             ) : (
               <ul className="space-y-2">
@@ -542,10 +553,10 @@ function Dashboard() {
             )}
           </section>
 
-          <section className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+          <section className="glass rounded-3xl p-5">
             <div className="mb-4 flex items-center gap-2">
               <Palette className="h-5 w-5 text-muted-foreground" />
-              <h2 className="text-base font-bold">المظهر</h2>
+              <h2 className="text-base font-bold">{t("appearance")}</h2>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {(Object.keys(THEMES) as ThemeKey[]).map((key) => (
@@ -562,7 +573,7 @@ function Dashboard() {
                     className="mb-2 block h-10 w-full rounded-xl"
                     style={{ background: THEMES[key].swatch }}
                   />
-                  {THEMES[key].label}
+                  {pick(THEMES[key].label, THEMES[key].labelEn)}
                 </button>
               ))}
             </div>
@@ -570,14 +581,16 @@ function Dashboard() {
 
           {error ? <p className="text-xs font-semibold text-destructive">{error}</p> : null}
           {notice ? <p className="text-xs font-semibold text-primary">{notice}</p> : null}
-          {saving ? <p className="text-xs text-muted-foreground">جارٍ الحفظ…</p> : null}
+          {saving ? (
+            <p className="text-xs text-muted-foreground">{pick("جارٍ الحفظ…", "Saving…")}</p>
+          ) : null}
         </div>
 
         <div className="lg:sticky lg:top-24 lg:self-start">
           <p className="mb-3 text-center text-xs font-semibold text-muted-foreground">
-            المعاينة الحية
+            {t("livePreview")}
           </p>
-          <div className="mx-auto w-full max-w-[360px] rounded-[2.5rem] border-8 border-foreground/85 bg-foreground/85 shadow-2xl">
+          <div className="mx-auto w-full max-w-[360px] rounded-[2.75rem] border-[10px] border-foreground/85 bg-foreground/85 shadow-2xl">
             <BioPreview
               profile={draft}
               links={links}
