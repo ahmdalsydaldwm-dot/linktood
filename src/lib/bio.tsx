@@ -43,28 +43,53 @@ export const ICONS: Record<IconKey, { label: string; Icon: LucideIcon }> = {
   telegram: { label: "تيليجرام", Icon: Send },
 };
 
-export type ThemeKey = "light" | "dark" | "gradient" | "sunset";
+export type ThemeKey = "midnight" | "glass" | "neumorph" | "gradient" | "sunset" | "light" | "dark";
 
-export const THEMES: Record<ThemeKey, { label: string; className: string; swatch: string }> = {
-  light: {
-    label: "الوضع الفاتح",
-    className: "theme-light",
-    swatch: "linear-gradient(135deg,#ffffff,#e8eaf0)",
+export const THEMES: Record<
+  ThemeKey,
+  { label: string; labelEn: string; className: string; swatch: string }
+> = {
+  midnight: {
+    label: "منتصف الليل",
+    labelEn: "Midnight",
+    className: "theme-midnight",
+    swatch: "linear-gradient(135deg,#141432,#4f46e5)",
   },
-  dark: {
-    label: "الوضع الداكن",
-    className: "theme-dark",
-    swatch: "linear-gradient(135deg,#1f2430,#0f1115)",
+  glass: {
+    label: "زجاجي",
+    labelEn: "Glass",
+    className: "theme-glass",
+    swatch: "linear-gradient(135deg,#4f7cf7,#4fd6e0)",
+  },
+  neumorph: {
+    label: "نيومورفيزم",
+    labelEn: "Neumorph",
+    className: "theme-neumorph",
+    swatch: "linear-gradient(135deg,#e9eaf3,#c9ccd8)",
   },
   gradient: {
     label: "المتدرج",
+    labelEn: "Gradient",
     className: "theme-gradient",
     swatch: "linear-gradient(135deg,#38bdf8,#a855f7)",
   },
   sunset: {
     label: "الغروب",
+    labelEn: "Sunset",
     className: "theme-sunset",
     swatch: "linear-gradient(135deg,#fbbf24,#ef4444)",
+  },
+  light: {
+    label: "الوضع الفاتح",
+    labelEn: "Light",
+    className: "theme-light",
+    swatch: "linear-gradient(135deg,#ffffff,#e8eaf0)",
+  },
+  dark: {
+    label: "الوضع الداكن",
+    labelEn: "Dark",
+    className: "theme-dark",
+    swatch: "linear-gradient(135deg,#1f2430,#0f1115)",
   },
 };
 
@@ -97,7 +122,7 @@ export function normalizeUrl(raw: string) {
 }
 
 export function themeClassOf(theme: string) {
-  return (THEMES[theme as ThemeKey] ?? THEMES.gradient).className;
+  return (THEMES[theme as ThemeKey] ?? THEMES.midnight).className;
 }
 
 export function BioPreview({
